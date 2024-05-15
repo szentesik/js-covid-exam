@@ -13,25 +13,32 @@
         </div>
 
         <div class="container">
-            <div class="search-bar">                
-                <form action="" id="search">
-                    <div class="form-item">                        
-                        <input type="text" class="" id="country" placeholder="Country">
-                    </div>
+            <div class="toolbar">
+                <div class="search-bar">                
+                    <form action="" id="search">
+                        <div class="form-item">                        
+                            <input type="text" class="" id="country" placeholder="Country">
+                        </div>
 
-                    <div class="form-item" id="filters">                        
-                        <div class="checklist-element"><input type="checkbox" id="cases" checked><span>Cases and mortality</span></div>
-                        <div class="checklist-element"><input type="checkbox" id="vaccinated" checked><span>Vaccination</span></div>
-                        <div class="checklist-element"><input type="checkbox" id="charts" disabled><span>Show charts</span></div>
-                    </div>
-                    
-                    <div class="form-end">
-                        <button id="submit" type="submit">Show</button>
-                    </div>                    
-                </form>
+                        <div class="form-item" id="filters">                        
+                            <div class="checklist-element"><input type="checkbox" id="cases" checked><span>Cases and mortality</span></div>
+                            <div class="checklist-element"><input type="checkbox" id="vaccinated" checked><span>Vaccination</span></div>
+                            <div class="checklist-element"><input type="checkbox" id="charts" disabled><span>Show charts</span></div>
+                        </div>
+                        
+                        <div class="form-end">
+                            <button id="submit" type="submit">Show</button>
+                        </div>                    
+                    </form>
+                </div>
+
+                <div id="loading-indicator" class="loadingio-spinner-gear-nq4q5u6dq7r" style="display: none;"><div class="ldio-x2uulkbinbj">
+                    <div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                </div></div>
+                
             </div>
-    
-            <div class="content">                                
+
+            <div class="content" id="cards-container">
             </div>
 
             <div id="error-message" style="display: none;">Error occurred</div>            

@@ -1,5 +1,8 @@
 @use 'variables' as vars;
 @use 'search-bar';
+@use 'card';
+@use 'loading';
+@use 'error-message';
 
 body {
     font-family: vars.$font-family;
@@ -15,30 +18,46 @@ body {
     margin-bottom: vars.$default-margin;
 }
 
-#error-message {
-    background-color: #fce4e4;
-    border: 1px solid #fcc2c3;
-    color: #cc0033;
-    font-weight: bold;
-    position: fixed;        
-    right: 10px;
-    bottom: 10px;
-    padding: 20px 30px;    
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    animation-name: move-out;
-    animation-duration: 4s;
-    animation-delay: 2s;
-    animation-iteration-count: 1;
+.container {
+    display: flex;    
 }
 
-@keyframes move-out {
-    0%   {}    
-    100% {opacity: 0.2; right: -100%;}
-  }
+.toolbar {
+    max-width: min(33%, 260px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    $cards-margin: 32px;
+    margin-top: vars.$default-margin;
+    margin-right: $cards-margin;
+    margin-left: $cards-margin;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: $cards-margin;    
+}
 
 
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
 
+    .toolbar {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    .content {
+        margin-left: 0;
+        margin-right: 0;
+        flex-direction: column;
+    }
+}

@@ -58,15 +58,19 @@ const checkAndGetInput = () => {
 
 const onSubmit = async e => {
     e.preventDefault();
-    console.log('submit pressed');    
+    console.log('submit pressed');
     const input = checkAndGetInput();
     if(!input) {
         return;
     }
-
+    
     console.log('validity passed');
+    const submitBtn = document.getElementById('submit');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    submitBtn.disabled = true;
+    loadingIndicator.style.display = 'inline-block';
 
-    let requests = [];
+    let requests = [];    
     
     if(input.showCases) {
         requests.push(queryCases(input.country));
@@ -86,6 +90,10 @@ const onSubmit = async e => {
     } catch (error) {
         console.error('Retreving data failed:', error);
         showError(`Retreving data failed: ${error.message}`);
+    } finally {
+        submitBtn.disabled = false;
+        loadingIndicator.style.display = 'none';
+        e.target.reset();
     }
 }
 
