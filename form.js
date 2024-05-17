@@ -86,7 +86,14 @@ const onSubmit = async e => {
         let info = {};
         responses.forEach(resp => info = {...info, ...resp});
         //console.log('merged:', info);
-        addCard(input.country, info);
+        try {
+            addCard(input.country, info, input.showCharts);
+        }
+        catch (error) {
+            console.error('Rendering failed:', error);
+            showError(`Rendering data failed: ${error.message}`);
+        }
+        
     } catch (error) {
         console.error('Retreving data failed:', error);
         showError(`Retreving data failed: ${error.message}`);

@@ -1,6 +1,8 @@
+import Chart from 'chart.js/auto';
+
 let uid = 1;
 
-export const addCard = (country, info) => {
+export const addCard = (country, info, showCharts) => {
     console.log('addCard:', country, info);
     const container = document.getElementById('cards-container');   
     container.insertAdjacentHTML('afterbegin', `
@@ -26,11 +28,81 @@ export const addCard = (country, info) => {
                 }
                 <li><span class="card-data-title">Updated: </span><span class="card-data-value">${info.updated}</span></li>
             </ul>
+            ${showCharts ?
+            `<div id="charts">
+                ${'confirmed' in info ?  
+                `<div class="chart-container"><canvas class="chart" id="mortality-chart-${uid}"></canvas></div>` : ''
+                }
+                ${'administered' in info ?  
+                `<div class="chart-container"><canvas class="chart" id="vaccination-chart-${uid}"></canvas></div>` : ''
+                } 
+            </div>` : ''
+            }
         <div>
     `); 
+
+    if(showCharts && 'confirmed' in info) {
+        renderMortalityChart(info, uid);
+    }
+    
+    if(showCharts && 'administered' in info) {
+        renderVaccinationChart(info, uid);
+    }
 
     document.querySelector(`#remove-card-${uid}`)
         .addEventListener('click', e => e.target.closest('.card').remove());
 
     uid++;    
+}
+
+const renderMortalityChart = (info, uid) => {     
+    const ctx = document.getElementById(`mortality-chart-${uid}`);
+    new Chart(ctx, {
+        type: 'pie',
+        data: {            
+            labels: ['Confirmed', 'Recovered', 'Deaths'],
+            datasets: [{
+            label: '# of Cases',
+            data: [info.confirmed, info.recovered, info.deaths],
+            borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Cases'
+                },
+                legend: {
+                    position: 'right'
+                }
+            }
+        }        
+    });    
+}
+
+const renderVaccinationChart = (info, uid) => {    
+    const ctx = document.getElementById(`vaccination-chart-${uid}`);
+    new Chart(ctx, {
+        type: 'pie',
+        data: {            
+            labels: ['Not vaccinated', 'Vaccinated'],
+            datasets: [{
+            label: '# of Patients',
+            data: [info.population - info.vaccinated, info.vaccinated],
+            borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Vaccination'
+                },
+                legend: {
+                    position: 'right'
+                }
+            }
+        }        
+    });    
 }

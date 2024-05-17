@@ -4,7 +4,7 @@ import '@fontsource/roboto';
 import './styles.scss';
 
 const init = () => {
-   initForm();
+    initForm();
 }
 
 if (document.readyState === "loading") {
