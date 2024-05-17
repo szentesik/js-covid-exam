@@ -1,5 +1,6 @@
 import { addCard } from "./cards";
 import { queryCases, queryVaccination } from "./covid-api";
+import { autocomplete } from "./autocomplete";
 
 const countries = [ "Hungary", "France", "Slovakia", "Slovenia", "Austria", "Romania"];
 
@@ -13,6 +14,8 @@ export const initForm = () => {
     country.addEventListener('input', _ => country.setCustomValidity(''));
     document.querySelectorAll('#filters input')
     .forEach( el => el.addEventListener('change', _ => showCases.setCustomValidity('')));
+
+    autocomplete(document.getElementById("country"), countries);
 }
 
 // Check validity and gather search parameters from the form

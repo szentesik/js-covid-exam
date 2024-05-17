@@ -1,4 +1,5 @@
 @use 'variables' as vars;
+@use 'autocomplete';
 
 .search-bar {
     background-color: vars.$primary-color;         

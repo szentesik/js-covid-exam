@@ -17,7 +17,6 @@ export const queryCases = async country => {
         confirmed: body.confirmed,
         recovered: body.recovered,
         deaths: body.deaths,
-        //updated: Date.parse(body.updated)
         updated: body.updated
     }
 
@@ -40,8 +39,7 @@ export const queryVaccination = async country => {
         country: body.country,
         population: body.population,
         administered: body.administered,
-        vaccinated: body.people_vaccinated,        
-        //updated: Date.parse(body.updated)
+        vaccinated: body.people_vaccinated,
         updated: body.updated
     }
 
