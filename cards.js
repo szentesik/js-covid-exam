@@ -5,7 +5,7 @@ let uid = 1;
 export const addCard = (country, info, showCharts) => {
     console.log('addCard:', country, info);
     const container = document.getElementById('cards-container');   
-    container.insertAdjacentHTML('afterbegin', `
+    container.insertAdjacentHTML('beforeend', `
         <div class="card" id="card-${uid}">
             <button class="close-button" id="remove-card-${uid}">&#x2716;</button>
             <h1 class="card-title">${country}</h1>
@@ -52,6 +52,9 @@ export const addCard = (country, info, showCharts) => {
     document.querySelector(`#remove-card-${uid}`)
         .addEventListener('click', e => e.target.closest('.card').remove());
 
+    const newCard = document.querySelector(`#card-${uid}`);    
+    setTimeout(() => newCard.scrollIntoView({behavior: "smooth"}), 60);     // Async call is required to make scrollIntoView with smooth behavor to align the item to top properly on chromium based browsers
+    
     uid++;    
 }
 
@@ -88,7 +91,7 @@ const renderVaccinationChart = (info, uid) => {
         data: {            
             labels: ['Not vaccinated', 'Vaccinated'],
             datasets: [{
-            label: '# of Patients',
+            label: '# of Person',
             data: [info.population - info.vaccinated, info.vaccinated],
             borderWidth: 1
             }]
